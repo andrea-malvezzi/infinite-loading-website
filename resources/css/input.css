@@ -3,7 +3,7 @@
 @font-face {
     font-family: "Outfit";
     display: swap;
-    src: url("/infinite-loading-website/resources/phrases.json") format("woff2");
+    src: url("/infinite-loading-website/resources/Outfit-VariableFont_wght.ttf") format("woff2");
 }
 
 @theme{
