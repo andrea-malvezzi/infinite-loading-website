@@ -71,7 +71,7 @@ function updateTitlesDots() {
 
 document.addEventListener("DOMContentLoaded", async () => {
     // Fetch the loading tips and the titles from the json file
-    const jsonContent = await fetchTips("/resources/phrases.json");
+    const jsonContent = await fetchTips("resources/phrases.json");
 
     titles  = jsonContent[0];
     tips    = jsonContent[1];
