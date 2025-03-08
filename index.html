@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="resources/css/styles.css">
+    <title>Loading title</title>
+</head>
+<body class="font-Outfit">
+    <div class="h-screen w-screen flex items-center justify-center overflow-hidden">
+        <div class="flex flex-col items-center justify-center">
+            <div class="p-8 flex flex-col items-center justify-center">
+                <!-- loading gif -->
+                <!-- Wheel -->
+                <div class="relative h-48 w-48">
+                    <div class="absolute inset-0 border-8 border-amber-400 rounded-full animate-spin">
+                      <!-- Spokes -->
+                      <div class="absolute top-0 left-1/2 w-1 h-full bg-amber-300 transform -translate-x-1/2"></div>
+                      <div class="absolute top-1/2 left-0 w-full h-1 bg-amber-300 transform -translate-y-1/2"></div>
+                      <div class="absolute top-0 left-1/2 w-1 h-full bg-amber-300 transform -translate-x-1/2 rotate-45"></div>
+                      <div class="absolute top-0 left-1/2 w-1 h-full bg-amber-300 transform -translate-x-1/2 -rotate-45"></div>
+                    </div>
+
+                    <!-- Hamster - positioned at the bottom inside the wheel -->
+                    <div class="absolute bottom-4 left-1/2 w-16 h-10 transform translate-y-2 wiggle-animation">
+                      <div class="relative w-full h-full">
+                        <!-- Hamster body -->
+                        <div class="absolute inset-0 bg-orange-300 rounded-full"></div>
+
+                        <!-- Ear -->
+                        <div class="absolute top-0 right-2 w-4 h-4 bg-orange-200 rounded-full"></div>
+
+                        <!-- Eye -->
+                        <div class="absolute top-2 right-2 w-2 h-2 bg-black rounded-full"></div>
+
+                        <!-- Nose -->
+                        <div class="absolute top-5 right-1 w-2 h-1 bg-pink-400 rounded-full"></div>
+
+                        <!-- Feet (animated) -->
+                        <div class="absolute bottom-0 left-3 w-2 h-1 bg-orange-400 rounded-full animate-bounce"></div>
+                        <div class="absolute bottom-0 left-6 w-2 h-1 bg-orange-400 rounded-full animate-bounce delay-100"></div>
+                      </div>
+                    </div>                             
+                </div>
+                <!-- loading tip -->
+                <span class="" id="loading-title">Loading content - this may take a <i>while</i></span>
+                <span class="transition-opacity duration-500 ease-in-out" id="loading-tip">Loading the loading tips... heh, that sounded funny, didn't it?</span>
+            </div>
+        </div>
+    </div>
+    <script src="resources/js/script.js"></script>
+</body>
+</html>

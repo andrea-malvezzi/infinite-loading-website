@@ -1,0 +1,17 @@
+{
+  "name": "infinite_loading",
+  "version": "1.0.0",
+  "description": "A simple website with an infinite loading gif and some neat easter eggs here and there.",
+  "main": "script.js",
+  "scripts": {
+    "build": "npx @tailwindcss/cli -i ./resources/css/input.css -o ./resources/css/styles.css --watch"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@tailwindcss/cli": "^4.0.12",
+    "@tailwindcss/postcss": "^4.0.12",
+    "tailwindcss": "^4.0.12"
+  }
+}
