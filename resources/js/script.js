@@ -2,9 +2,16 @@ const loadingGifElement = document.getElementById("loading-gif");
 const loadingTipElement = document.getElementById("loading-tip");
 const loadingTitleElement = document.getElementById("loading-title");
 
-const baseTitle = document.title;
-const baseLoadingTitle = document.getElementById("loading-title").innerHTML;
+let baseTitle;
+let baseLoadingTitle;
 let dotCount = 0;
+
+function getUserLanguage() {
+  // Get browser language (e.g., "en-US", "fr", "es-ES", "it")
+  const fullLang = navigator.language || navigator.userLanguage || 'en';
+  // Extract the base language code (e.g., "en", "fr", "es", "it")
+  return fullLang.split('-')[0];
+}
 
 async function fetchTips(filePath) {
     try {
@@ -13,9 +20,21 @@ async function fetchTips(filePath) {
         throw new Error(`Failed to fetch tips: ${response.status} ${response.statusText}`);
       }
       
-      const text = await response.text();
-      // Split the file content into different lines
-      return text.split('\n').filter(line => line.trim() !== '');
+      const allTips = await response.json();
+      
+      // Get user's language
+      const userLang = getUserLanguage();
+      
+      // Check if user's language is supported, otherwise fall back to English
+      const langToUse = allTips[userLang] ? userLang : 'en';
+      
+      // Get just the tips for the selected language
+      const tipsForLanguage = allTips[langToUse];
+      
+      // Return an array containing two arrays:
+      // the first containing the first 3 elements (page title, loading title and error message);
+      // the second contaning the actual phrases
+      return [tipsForLanguage.slice(0, 3), tipsForLanguage.slice(3)];
     } catch (error) {
       console.error('[DEV MESSAGE] ❌ Error loading tips:', error);
       // Fallback text in case there is an error while loading the file
@@ -24,12 +43,12 @@ async function fetchTips(filePath) {
 }
 
 function displayRandomTip(tips) {
-    // Fade-out the previous tip
-    loadingTipElement.classList.add("opacity-0");
-
-    // Generate a random value used to select a random tip from the list passed to the function
-    const randomIndex = Math.floor(Math.random() * tips.length);
+  // Fade-out the previous tip
+  loadingTipElement.classList.add("opacity-0");
   
+  // Generate a random value used to select a random tip from the list passed to the function
+  const randomIndex = Math.floor(Math.random() * tips.length);
+
   // Wait for fade out to complete before changing text
   setTimeout(() => {
     // Change the content of the loading tip
@@ -40,7 +59,7 @@ function displayRandomTip(tips) {
   }, 500); // Duration of Fade-out
 }
 
-function updateTitles() {
+function updateTitlesDots() {
     if (dotCount < 3) {
         dotCount++;
     } else {
@@ -51,11 +70,21 @@ function updateTitles() {
 }
 
 document.addEventListener("DOMContentLoaded", async () => {
-    // Update the page and the tips section titles every second (this adds the trailing dots)
-    setInterval(updateTitles, 1000);
+    // Fetch the loading tips and the titles from the json file
+    const jsonContent = await fetchTips("/resources/phrases.json");
 
-    // Fetch the loading tips from the text file
-    const tips = await fetchTips("/resources/phrases.txt");
+    titles  = jsonContent[0];
+    tips    = jsonContent[1];
+
+    document.title                = titles[0];
+    loadingTitleElement.innerHTML = titles[1];
+    loadingTipElement.innerHTML   = titles[2];
+
+    baseTitle         = document.title;
+    baseLoadingTitle  = loadingTitleElement.innerHTML;
+    // Update the page and the tips section titles every second (this adds the trailing dots)
+    setInterval(updateTitlesDots, 1000);
+
     // Display the first tip without waiting
     displayRandomTip(tips);
 
